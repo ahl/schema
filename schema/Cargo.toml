@@ -1,0 +1,18 @@
+[package]
+name = "schema"
+version = "0.0.1"
+authors = ["Adam H. Leventhal <ahl@oxide.computer>"]
+edition = "2018"
+license = "Apache-2.0"
+description = "Access the schema for a Rust item"
+repository = "https://github.com/ahl/schema"
+readme = "../README.md"
+keywords = ["macro", "schema", "reflection"]
+categories = ["development-tools::procedural-macro-helpers",
+              "development-tools::testing"]
+
+[dependencies]
+syn = { version = "1.0.64", features = ["derive"] }
+schema-derive = { version = "0.0.1", path = "../schema-derive" }
+proc-macro2 = "1.0.24"
+quote = "1.0.9"

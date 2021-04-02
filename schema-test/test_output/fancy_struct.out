@@ -1,0 +1,288 @@
+DeriveInput {
+    attrs: [],
+    vis: Inherited,
+    ident: Ident(
+        FancyStruct,
+    ),
+    generics: Generics {
+        lt_token: Some(
+            Lt,
+        ),
+        params: [
+            Lifetime(
+                LifetimeDef {
+                    attrs: [],
+                    lifetime: Lifetime {
+                        apostrophe: Span,
+                        ident: Ident(
+                            a,
+                        ),
+                    },
+                    colon_token: None,
+                    bounds: [],
+                },
+            ),
+            Comma,
+            Type(
+                TypeParam {
+                    attrs: [],
+                    ident: Ident(
+                        T,
+                    ),
+                    colon_token: Some(
+                        Colon,
+                    ),
+                    bounds: [
+                        Trait(
+                            TraitBound {
+                                paren_token: None,
+                                modifier: None,
+                                lifetimes: None,
+                                path: Path {
+                                    leading_colon: None,
+                                    segments: [
+                                        PathSegment {
+                                            ident: Ident(
+                                                ToString,
+                                            ),
+                                            arguments: None,
+                                        },
+                                    ],
+                                },
+                            },
+                        ),
+                    ],
+                    eq_token: None,
+                    default: None,
+                },
+            ),
+            Comma,
+            Type(
+                TypeParam {
+                    attrs: [],
+                    ident: Ident(
+                        U,
+                    ),
+                    colon_token: None,
+                    bounds: [],
+                    eq_token: None,
+                    default: None,
+                },
+            ),
+            Comma,
+            Const(
+                ConstParam {
+                    attrs: [],
+                    const_token: Const,
+                    ident: Ident(
+                        N,
+                    ),
+                    colon_token: Colon,
+                    ty: Path(
+                        TypePath {
+                            qself: None,
+                            path: Path {
+                                leading_colon: None,
+                                segments: [
+                                    PathSegment {
+                                        ident: Ident(
+                                            usize,
+                                        ),
+                                        arguments: None,
+                                    },
+                                ],
+                            },
+                        },
+                    ),
+                    eq_token: None,
+                    default: None,
+                },
+            ),
+        ],
+        gt_token: Some(
+            Gt,
+        ),
+        where_clause: Some(
+            WhereClause {
+                where_token: Where,
+                predicates: [
+                    Type(
+                        PredicateType {
+                            lifetimes: None,
+                            bounded_ty: Path(
+                                TypePath {
+                                    qself: None,
+                                    path: Path {
+                                        leading_colon: None,
+                                        segments: [
+                                            PathSegment {
+                                                ident: Ident(
+                                                    U,
+                                                ),
+                                                arguments: None,
+                                            },
+                                        ],
+                                    },
+                                },
+                            ),
+                            colon_token: Colon,
+                            bounds: [
+                                Trait(
+                                    TraitBound {
+                                        paren_token: None,
+                                        modifier: None,
+                                        lifetimes: None,
+                                        path: Path {
+                                            leading_colon: None,
+                                            segments: [
+                                                PathSegment {
+                                                    ident: Ident(
+                                                        ToString,
+                                                    ),
+                                                    arguments: None,
+                                                },
+                                            ],
+                                        },
+                                    },
+                                ),
+                            ],
+                        },
+                    ),
+                ],
+            },
+        ),
+    },
+    data: Struct(
+        DataStruct {
+            struct_token: Struct,
+            fields: Named(
+                FieldsNamed {
+                    brace_token: Brace,
+                    named: [
+                        Field {
+                            attrs: [
+                                Attribute {
+                                    pound_token: Pound,
+                                    style: Outer,
+                                    bracket_token: Bracket,
+                                    path: Path {
+                                        leading_colon: None,
+                                        segments: [
+                                            PathSegment {
+                                                ident: Ident(
+                                                    doc,
+                                                ),
+                                                arguments: None,
+                                            },
+                                        ],
+                                    },
+                                    tokens: TokenStream [
+                                        Punct {
+                                            char: '=',
+                                            spacing: Alone,
+                                        },
+                                        Literal {
+                                            lit: " mind your tees and ewes",
+                                        },
+                                    ],
+                                },
+                            ],
+                            vis: Inherited,
+                            ident: Some(
+                                Ident(
+                                    tee,
+                                ),
+                            ),
+                            colon_token: Some(
+                                Colon,
+                            ),
+                            ty: Reference(
+                                TypeReference {
+                                    and_token: And,
+                                    lifetime: Some(
+                                        Lifetime {
+                                            apostrophe: Span,
+                                            ident: Ident(
+                                                a,
+                                            ),
+                                        },
+                                    ),
+                                    mutability: None,
+                                    elem: Path(
+                                        TypePath {
+                                            qself: None,
+                                            path: Path {
+                                                leading_colon: None,
+                                                segments: [
+                                                    PathSegment {
+                                                        ident: Ident(
+                                                            T,
+                                                        ),
+                                                        arguments: None,
+                                                    },
+                                                ],
+                                            },
+                                        },
+                                    ),
+                                },
+                            ),
+                        },
+                        Comma,
+                        Field {
+                            attrs: [],
+                            vis: Inherited,
+                            ident: Some(
+                                Ident(
+                                    ewes,
+                                ),
+                            ),
+                            colon_token: Some(
+                                Colon,
+                            ),
+                            ty: Array(
+                                TypeArray {
+                                    bracket_token: Bracket,
+                                    elem: Path(
+                                        TypePath {
+                                            qself: None,
+                                            path: Path {
+                                                leading_colon: None,
+                                                segments: [
+                                                    PathSegment {
+                                                        ident: Ident(
+                                                            U,
+                                                        ),
+                                                        arguments: None,
+                                                    },
+                                                ],
+                                            },
+                                        },
+                                    ),
+                                    semi_token: Semi,
+                                    len: Path(
+                                        ExprPath {
+                                            attrs: [],
+                                            qself: None,
+                                            path: Path {
+                                                leading_colon: None,
+                                                segments: [
+                                                    PathSegment {
+                                                        ident: Ident(
+                                                            N,
+                                                        ),
+                                                        arguments: None,
+                                                    },
+                                                ],
+                                            },
+                                        },
+                                    ),
+                                },
+                            ),
+                        },
+                    ],
+                },
+            ),
+            semi_token: None,
+        },
+    ),
+}

@@ -1,0 +1,16 @@
+[package]
+name = "schema-test"
+version = "0.0.1"
+authors = ["Adam H. Leventhal <ahl@oxide.computer>"]
+edition = "2018"
+license = "Apache-2.0"
+description = "tests for the schema crate"
+repository = "https://github.com/ahl/schema"
+readme = "../README.md"
+keywords = ["macro", "schema", "reflection"]
+categories = ["development-tools::procedural-macro-helpers",
+              "development-tools::testing"]
+
+[dependencies]
+schema = { path = "../schema" }
+expectorate = "1.0.3"
