@@ -1,6 +1,6 @@
 DeriveInput {
     attrs: [],
-    vis: Inherited,
+    vis: Visibility::Inherited,
     ident: Ident(
         FancyStruct,
     ),
@@ -9,8 +9,8 @@ DeriveInput {
             Lt,
         ),
         params: [
-            Lifetime(
-                LifetimeDef {
+            GenericParam::Lifetime(
+                LifetimeParam {
                     attrs: [],
                     lifetime: Lifetime {
                         apostrophe: Span,
@@ -23,7 +23,7 @@ DeriveInput {
                 },
             ),
             Comma,
-            Type(
+            GenericParam::Type(
                 TypeParam {
                     attrs: [],
                     ident: Ident(
@@ -33,10 +33,10 @@ DeriveInput {
                         Colon,
                     ),
                     bounds: [
-                        Trait(
+                        TypeParamBound::Trait(
                             TraitBound {
                                 paren_token: None,
-                                modifier: None,
+                                modifier: TraitBoundModifier::None,
                                 lifetimes: None,
                                 path: Path {
                                     leading_colon: None,
@@ -45,7 +45,7 @@ DeriveInput {
                                             ident: Ident(
                                                 ToString,
                                             ),
-                                            arguments: None,
+                                            arguments: PathArguments::None,
                                         },
                                     ],
                                 },
@@ -57,7 +57,7 @@ DeriveInput {
                 },
             ),
             Comma,
-            Type(
+            GenericParam::Type(
                 TypeParam {
                     attrs: [],
                     ident: Ident(
@@ -70,7 +70,7 @@ DeriveInput {
                 },
             ),
             Comma,
-            Const(
+            GenericParam::Const(
                 ConstParam {
                     attrs: [],
                     const_token: Const,
@@ -78,22 +78,20 @@ DeriveInput {
                         N,
                     ),
                     colon_token: Colon,
-                    ty: Path(
-                        TypePath {
-                            qself: None,
-                            path: Path {
-                                leading_colon: None,
-                                segments: [
-                                    PathSegment {
-                                        ident: Ident(
-                                            usize,
-                                        ),
-                                        arguments: None,
-                                    },
-                                ],
-                            },
+                    ty: Type::Path {
+                        qself: None,
+                        path: Path {
+                            leading_colon: None,
+                            segments: [
+                                PathSegment {
+                                    ident: Ident(
+                                        usize,
+                                    ),
+                                    arguments: PathArguments::None,
+                                },
+                            ],
                         },
-                    ),
+                    },
                     eq_token: None,
                     default: None,
                 },
@@ -106,31 +104,29 @@ DeriveInput {
             WhereClause {
                 where_token: Where,
                 predicates: [
-                    Type(
+                    WherePredicate::Type(
                         PredicateType {
                             lifetimes: None,
-                            bounded_ty: Path(
-                                TypePath {
-                                    qself: None,
-                                    path: Path {
-                                        leading_colon: None,
-                                        segments: [
-                                            PathSegment {
-                                                ident: Ident(
-                                                    U,
-                                                ),
-                                                arguments: None,
-                                            },
-                                        ],
-                                    },
+                            bounded_ty: Type::Path {
+                                qself: None,
+                                path: Path {
+                                    leading_colon: None,
+                                    segments: [
+                                        PathSegment {
+                                            ident: Ident(
+                                                U,
+                                            ),
+                                            arguments: PathArguments::None,
+                                        },
+                                    ],
                                 },
-                            ),
+                            },
                             colon_token: Colon,
                             bounds: [
-                                Trait(
+                                TypeParamBound::Trait(
                                     TraitBound {
                                         paren_token: None,
-                                        modifier: None,
+                                        modifier: TraitBoundModifier::None,
                                         lifetimes: None,
                                         path: Path {
                                             leading_colon: None,
@@ -139,7 +135,7 @@ DeriveInput {
                                                     ident: Ident(
                                                         ToString,
                                                     ),
-                                                    arguments: None,
+                                                    arguments: PathArguments::None,
                                                 },
                                             ],
                                         },
@@ -152,137 +148,125 @@ DeriveInput {
             },
         ),
     },
-    data: Struct(
-        DataStruct {
-            struct_token: Struct,
-            fields: Named(
-                FieldsNamed {
-                    brace_token: Brace,
-                    named: [
-                        Field {
-                            attrs: [
-                                Attribute {
-                                    pound_token: Pound,
-                                    style: Outer,
-                                    bracket_token: Bracket,
-                                    path: Path {
-                                        leading_colon: None,
-                                        segments: [
-                                            PathSegment {
-                                                ident: Ident(
-                                                    doc,
-                                                ),
-                                                arguments: None,
-                                            },
-                                        ],
-                                    },
-                                    tokens: TokenStream [
-                                        Punct {
-                                            char: '=',
-                                            spacing: Alone,
-                                        },
-                                        Literal {
-                                            lit: " mind your tees and ewes",
+    data: Data::Struct {
+        struct_token: Struct,
+        fields: Fields::Named {
+            brace_token: Brace,
+            named: [
+                Field {
+                    attrs: [
+                        Attribute {
+                            pound_token: Pound,
+                            style: AttrStyle::Outer,
+                            bracket_token: Bracket,
+                            meta: Meta::NameValue {
+                                path: Path {
+                                    leading_colon: None,
+                                    segments: [
+                                        PathSegment {
+                                            ident: Ident(
+                                                doc,
+                                            ),
+                                            arguments: PathArguments::None,
                                         },
                                     ],
                                 },
-                            ],
-                            vis: Inherited,
-                            ident: Some(
-                                Ident(
-                                    tee,
-                                ),
-                            ),
-                            colon_token: Some(
-                                Colon,
-                            ),
-                            ty: Reference(
-                                TypeReference {
-                                    and_token: And,
-                                    lifetime: Some(
-                                        Lifetime {
-                                            apostrophe: Span,
-                                            ident: Ident(
-                                                a,
-                                            ),
-                                        },
-                                    ),
-                                    mutability: None,
-                                    elem: Path(
-                                        TypePath {
-                                            qself: None,
-                                            path: Path {
-                                                leading_colon: None,
-                                                segments: [
-                                                    PathSegment {
-                                                        ident: Ident(
-                                                            T,
-                                                        ),
-                                                        arguments: None,
-                                                    },
-                                                ],
-                                            },
-                                        },
-                                    ),
+                                eq_token: Eq,
+                                value: Expr::Lit {
+                                    attrs: [],
+                                    lit: Lit::Str {
+                                        token: " mind your tees and ewes",
+                                    },
                                 },
-                            ),
-                        },
-                        Comma,
-                        Field {
-                            attrs: [],
-                            vis: Inherited,
-                            ident: Some(
-                                Ident(
-                                    ewes,
-                                ),
-                            ),
-                            colon_token: Some(
-                                Colon,
-                            ),
-                            ty: Array(
-                                TypeArray {
-                                    bracket_token: Bracket,
-                                    elem: Path(
-                                        TypePath {
-                                            qself: None,
-                                            path: Path {
-                                                leading_colon: None,
-                                                segments: [
-                                                    PathSegment {
-                                                        ident: Ident(
-                                                            U,
-                                                        ),
-                                                        arguments: None,
-                                                    },
-                                                ],
-                                            },
-                                        },
-                                    ),
-                                    semi_token: Semi,
-                                    len: Path(
-                                        ExprPath {
-                                            attrs: [],
-                                            qself: None,
-                                            path: Path {
-                                                leading_colon: None,
-                                                segments: [
-                                                    PathSegment {
-                                                        ident: Ident(
-                                                            N,
-                                                        ),
-                                                        arguments: None,
-                                                    },
-                                                ],
-                                            },
-                                        },
-                                    ),
-                                },
-                            ),
+                            },
                         },
                     ],
+                    vis: Visibility::Inherited,
+                    mutability: FieldMutability::None,
+                    ident: Some(
+                        Ident(
+                            tee,
+                        ),
+                    ),
+                    colon_token: Some(
+                        Colon,
+                    ),
+                    ty: Type::Reference {
+                        and_token: And,
+                        lifetime: Some(
+                            Lifetime {
+                                apostrophe: Span,
+                                ident: Ident(
+                                    a,
+                                ),
+                            },
+                        ),
+                        mutability: None,
+                        elem: Type::Path {
+                            qself: None,
+                            path: Path {
+                                leading_colon: None,
+                                segments: [
+                                    PathSegment {
+                                        ident: Ident(
+                                            T,
+                                        ),
+                                        arguments: PathArguments::None,
+                                    },
+                                ],
+                            },
+                        },
+                    },
                 },
-            ),
-            semi_token: None,
+                Comma,
+                Field {
+                    attrs: [],
+                    vis: Visibility::Inherited,
+                    mutability: FieldMutability::None,
+                    ident: Some(
+                        Ident(
+                            ewes,
+                        ),
+                    ),
+                    colon_token: Some(
+                        Colon,
+                    ),
+                    ty: Type::Array {
+                        bracket_token: Bracket,
+                        elem: Type::Path {
+                            qself: None,
+                            path: Path {
+                                leading_colon: None,
+                                segments: [
+                                    PathSegment {
+                                        ident: Ident(
+                                            U,
+                                        ),
+                                        arguments: PathArguments::None,
+                                    },
+                                ],
+                            },
+                        },
+                        semi_token: Semi,
+                        len: Expr::Path {
+                            attrs: [],
+                            qself: None,
+                            path: Path {
+                                leading_colon: None,
+                                segments: [
+                                    PathSegment {
+                                        ident: Ident(
+                                            N,
+                                        ),
+                                        arguments: PathArguments::None,
+                                    },
+                                ],
+                            },
+                        },
+                    },
+                },
+            ],
         },
-    ),
+        semi_token: None,
+    },
 }

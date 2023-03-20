@@ -13,15 +13,7 @@ impl Teleporter for DeriveInput {
 
 impl Teleporter for Attribute {
     fn teleport(&self) -> proc_macro2::TokenStream {
-        make_struct!(
-            self,
-            Attribute,
-            pound_token,
-            style,
-            bracket_token,
-            path,
-            tokens
-        )
+        make_struct!(self, Attribute, pound_token, style, bracket_token, meta)
     }
 }
 
@@ -37,7 +29,6 @@ impl Teleporter for Visibility {
             self,
             Visibility,
             Public(vis_public),
-            Crate(vis_crate),
             Restricted(vis_restricted),
             Inherited
         )
@@ -101,18 +92,6 @@ where
                 #( #values, )*
             ] as Vec<#t>).into_iter().collect::<schema::syn::punctuated::Punctuated::<#t, #p>>()
         }
-    }
-}
-
-impl Teleporter for VisPublic {
-    fn teleport(&self) -> TokenStream {
-        make_struct!(self, VisPublic, pub_token)
-    }
-}
-
-impl Teleporter for VisCrate {
-    fn teleport(&self) -> proc_macro2::TokenStream {
-        make_struct!(self, VisCrate, crate_token)
     }
 }
 
@@ -222,12 +201,6 @@ impl Teleporter for TraitBoundModifier {
     }
 }
 
-impl Teleporter for LifetimeDef {
-    fn teleport(&self) -> proc_macro2::TokenStream {
-        make_struct!(self, LifetimeDef, attrs, lifetime, colon_token, bounds)
-    }
-}
-
 impl Teleporter for ConstParam {
     fn teleport(&self) -> proc_macro2::TokenStream {
         make_struct!(
@@ -246,10 +219,16 @@ impl Teleporter for ConstParam {
 
 impl Teleporter for Field {
     fn teleport(&self) -> proc_macro2::TokenStream {
-        make_struct!(self, Field, attrs, vis, ident, colon_token, ty)
+        make_struct!(self, Field, attrs, vis, mutability, ident, colon_token, ty)
     }
     fn name() -> &'static str {
         "syn::Field"
+    }
+}
+
+impl Teleporter for FieldMutability {
+    fn teleport(&self) -> TokenStream {
+        make_enum!(self, FieldMutability, None)
     }
 }
 
@@ -360,9 +339,8 @@ impl Teleporter for WherePredicate {
         make_enum!(
             self,
             WherePredicate,
-            Type(predicate_type),
             Lifetime(predicate_lifetime),
-            Eq(predicate_eq),
+            Type(predicate_type),
         )
     }
     fn name() -> &'static str {
@@ -380,12 +358,6 @@ impl Teleporter for PredicateType {
             colon_token,
             bounds,
         )
-    }
-}
-
-impl Teleporter for PredicateEq {
-    fn teleport(&self) -> TokenStream {
-        make_struct!(self, PredicateEq, lhs_ty, eq_token, rhs_ty)
     }
 }
 
@@ -478,19 +450,14 @@ impl Teleporter for GenericArgument {
             GenericArgument,
             Lifetime(lifetime),
             Type(ttype),
-            Binding(binding),
+            Const(expr),
+            AssocType(assoc_type),
+            AssocConst(assoc_const),
             Constraint(constraint),
-            Const(expr)
         )
     }
     fn name() -> &'static str {
         "syn::GenericArgument"
-    }
-}
-
-impl Teleporter for Binding {
-    fn teleport(&self) -> proc_macro2::TokenStream {
-        make_struct!(self, Binding, ident, eq_token, ty)
     }
 }
 
@@ -619,5 +586,53 @@ impl Teleporter for LitInt {
         quote! {
             schema::syn::LitInt::new(#value, schema::proc_macro2::Span::call_site())
         }
+    }
+}
+
+impl Teleporter for Meta {
+    fn teleport(&self) -> TokenStream {
+        make_enum!(
+            self,
+            Meta,
+            Path(path),
+            List(meta_list),
+            NameValue(meta_name_value),
+        )
+    }
+}
+
+impl Teleporter for MetaList {
+    fn teleport(&self) -> TokenStream {
+        make_struct!(self, MetaList, path, delimiter, tokens)
+    }
+}
+
+impl Teleporter for MetaNameValue {
+    fn teleport(&self) -> TokenStream {
+        make_struct!(self, MetaNameValue, path, eq_token, value)
+    }
+}
+
+impl Teleporter for BareVariadic {
+    fn teleport(&self) -> TokenStream {
+        make_struct!(self, BareVariadic, attrs, name, dots, comma)
+    }
+}
+
+impl Teleporter for LifetimeParam {
+    fn teleport(&self) -> TokenStream {
+        make_struct!(self, LifetimeParam, attrs, lifetime, colon_token, bounds)
+    }
+}
+
+impl Teleporter for AssocType {
+    fn teleport(&self) -> TokenStream {
+        make_struct!(self, AssocType, ident, generics, eq_token, ty)
+    }
+}
+
+impl Teleporter for AssocConst {
+    fn teleport(&self) -> TokenStream {
+        make_struct!(self, AssocConst, ident, generics, eq_token, value)
     }
 }

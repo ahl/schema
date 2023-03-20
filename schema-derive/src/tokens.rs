@@ -19,18 +19,15 @@ macro_rules! make_token {
     };
 }
 
-make_token!(Add);
 make_token!(And);
 make_token!(As);
-make_token!(Bang);
 make_token!(Brace);
 make_token!(Bracket);
 make_token!(Colon);
-make_token!(Colon2);
 make_token!(Comma);
 make_token!(Const);
 make_token!(Crate);
-make_token!(Dot3);
+make_token!(DotDotDot);
 make_token!(Dyn);
 make_token!(Enum);
 make_token!(Eq);
@@ -43,7 +40,10 @@ make_token!(Impl);
 make_token!(In);
 make_token!(Lt);
 make_token!(Mut);
+make_token!(Not);
 make_token!(Paren);
+make_token!(PathSep);
+make_token!(Plus);
 make_token!(Pound);
 make_token!(Pub);
 make_token!(Question);
