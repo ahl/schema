@@ -2,32 +2,32 @@ DeriveInput {
     attrs: [
         Attribute {
             pound_token: Pound,
-            style: Outer,
+            style: AttrStyle::Outer,
             bracket_token: Bracket,
-            path: Path {
-                leading_colon: None,
-                segments: [
-                    PathSegment {
-                        ident: Ident(
-                            repr,
-                        ),
-                        arguments: None,
-                    },
-                ],
-            },
-            tokens: TokenStream [
-                Group {
-                    delimiter: Parenthesis,
-                    stream: TokenStream [
-                        Ident {
-                            sym: C,
+            meta: Meta::List {
+                path: Path {
+                    leading_colon: None,
+                    segments: [
+                        PathSegment {
+                            ident: Ident(
+                                repr,
+                            ),
+                            arguments: PathArguments::None,
                         },
                     ],
                 },
-            ],
+                delimiter: MacroDelimiter::Paren(
+                    Paren,
+                ),
+                tokens: TokenStream [
+                    Ident {
+                        sym: C,
+                    },
+                ],
+            },
         },
     ],
-    vis: Inherited,
+    vis: Visibility::Inherited,
     ident: Ident(
         TestUnion,
     ),
@@ -37,71 +37,67 @@ DeriveInput {
         gt_token: None,
         where_clause: None,
     },
-    data: Union(
-        DataUnion {
-            union_token: Union,
-            fields: FieldsNamed {
-                brace_token: Brace,
-                named: [
-                    Field {
-                        attrs: [],
-                        vis: Inherited,
-                        ident: Some(
-                            Ident(
-                                f1,
-                            ),
+    data: Data::Union {
+        union_token: Union,
+        fields: FieldsNamed {
+            brace_token: Brace,
+            named: [
+                Field {
+                    attrs: [],
+                    vis: Visibility::Inherited,
+                    mutability: FieldMutability::None,
+                    ident: Some(
+                        Ident(
+                            f1,
                         ),
-                        colon_token: Some(
-                            Colon,
-                        ),
-                        ty: Path(
-                            TypePath {
-                                qself: None,
-                                path: Path {
-                                    leading_colon: None,
-                                    segments: [
-                                        PathSegment {
-                                            ident: Ident(
-                                                u32,
-                                            ),
-                                            arguments: None,
-                                        },
-                                    ],
+                    ),
+                    colon_token: Some(
+                        Colon,
+                    ),
+                    ty: Type::Path {
+                        qself: None,
+                        path: Path {
+                            leading_colon: None,
+                            segments: [
+                                PathSegment {
+                                    ident: Ident(
+                                        u32,
+                                    ),
+                                    arguments: PathArguments::None,
                                 },
-                            },
-                        ),
+                            ],
+                        },
                     },
-                    Comma,
-                    Field {
-                        attrs: [],
-                        vis: Inherited,
-                        ident: Some(
-                            Ident(
-                                f2,
-                            ),
+                },
+                Comma,
+                Field {
+                    attrs: [],
+                    vis: Visibility::Inherited,
+                    mutability: FieldMutability::None,
+                    ident: Some(
+                        Ident(
+                            f2,
                         ),
-                        colon_token: Some(
-                            Colon,
-                        ),
-                        ty: Path(
-                            TypePath {
-                                qself: None,
-                                path: Path {
-                                    leading_colon: None,
-                                    segments: [
-                                        PathSegment {
-                                            ident: Ident(
-                                                f32,
-                                            ),
-                                            arguments: None,
-                                        },
-                                    ],
+                    ),
+                    colon_token: Some(
+                        Colon,
+                    ),
+                    ty: Type::Path {
+                        qself: None,
+                        path: Path {
+                            leading_colon: None,
+                            segments: [
+                                PathSegment {
+                                    ident: Ident(
+                                        f32,
+                                    ),
+                                    arguments: PathArguments::None,
                                 },
-                            },
-                        ),
+                            ],
+                        },
                     },
-                ],
-            },
+                },
+            ],
         },
-    ),
+    },
 }

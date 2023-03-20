@@ -14,7 +14,11 @@ fn main() {
 #[cfg(test)]
 mod test {
     use expectorate::assert_contents;
-    use schema::{quote::ToTokens, Schema};
+    use schema::{
+        quote::ToTokens,
+        syn::{MacroDelimiter, Meta, MetaNameValue},
+        Schema,
+    };
 
     /// Doc comments are attributes; isn't that grand?!
     #[allow(unused)]
@@ -61,15 +65,25 @@ mod test {
         let schema = TestStruct::schema();
 
         for attr in schema.attrs {
-            let path = attr.path.to_token_stream().to_string();
-            let value = attr.tokens.to_string();
-            match path.as_str() {
-                "allow" => assert_eq!(value, "(unused)"),
-                "doc" => assert_eq!(
-                    value,
-                    r#"= " Doc comments are attributes; isn\'t that grand?!""#
-                ),
-                other => panic!("unexpected attr '{}'", other),
+            match attr.path().to_token_stream().to_string().as_str() {
+                "allow" => {
+                    let Meta::List(ll) = &attr.meta else {
+                        panic!()
+                    };
+                    assert!(matches!(ll.delimiter, MacroDelimiter::Paren(_)));
+                    assert_eq!(ll.tokens.to_token_stream().to_string(), "unused")
+                }
+                "doc" => {
+                    let Meta::NameValue(nv) = &attr.meta else {
+                        panic!()
+                    };
+                    assert_eq!(
+                        nv.value.to_token_stream().to_string(),
+                        r#"" Doc comments are attributes; isn't that grand?!""#,
+                    )
+                }
+
+                other => panic!("unexpected attr '{}': {:#?}", other, attr),
             }
         }
     }

@@ -1,6 +1,6 @@
 DeriveInput {
     attrs: [],
-    vis: Inherited,
+    vis: Visibility::Inherited,
     ident: Ident(
         TestEnum,
     ),
@@ -10,160 +10,148 @@ DeriveInput {
         gt_token: None,
         where_clause: None,
     },
-    data: Enum(
-        DataEnum {
-            enum_token: Enum,
-            brace_token: Brace,
-            variants: [
-                Variant {
-                    attrs: [],
-                    ident: Ident(
-                        A,
-                    ),
-                    fields: Unit,
-                    discriminant: None,
-                },
-                Comma,
-                Variant {
-                    attrs: [],
-                    ident: Ident(
-                        B,
-                    ),
-                    fields: Unnamed(
-                        FieldsUnnamed {
-                            paren_token: Paren,
-                            unnamed: [
-                                Field {
-                                    attrs: [],
-                                    vis: Inherited,
-                                    ident: None,
-                                    colon_token: None,
-                                    ty: Path(
-                                        TypePath {
-                                            qself: None,
-                                            path: Path {
-                                                leading_colon: None,
-                                                segments: [
-                                                    PathSegment {
-                                                        ident: Ident(
-                                                            u32,
-                                                        ),
-                                                        arguments: None,
-                                                    },
-                                                ],
-                                            },
+    data: Data::Enum {
+        enum_token: Enum,
+        brace_token: Brace,
+        variants: [
+            Variant {
+                attrs: [],
+                ident: Ident(
+                    A,
+                ),
+                fields: Fields::Unit,
+                discriminant: None,
+            },
+            Comma,
+            Variant {
+                attrs: [],
+                ident: Ident(
+                    B,
+                ),
+                fields: Fields::Unnamed {
+                    paren_token: Paren,
+                    unnamed: [
+                        Field {
+                            attrs: [],
+                            vis: Visibility::Inherited,
+                            mutability: FieldMutability::None,
+                            ident: None,
+                            colon_token: None,
+                            ty: Type::Path {
+                                qself: None,
+                                path: Path {
+                                    leading_colon: None,
+                                    segments: [
+                                        PathSegment {
+                                            ident: Ident(
+                                                u32,
+                                            ),
+                                            arguments: PathArguments::None,
                                         },
-                                    ),
+                                    ],
                                 },
-                            ],
+                            },
                         },
-                    ),
-                    discriminant: None,
+                    ],
                 },
-                Comma,
-                Variant {
-                    attrs: [],
-                    ident: Ident(
-                        C,
-                    ),
-                    fields: Unnamed(
-                        FieldsUnnamed {
-                            paren_token: Paren,
-                            unnamed: [
-                                Field {
-                                    attrs: [],
-                                    vis: Inherited,
-                                    ident: None,
-                                    colon_token: None,
-                                    ty: Path(
-                                        TypePath {
-                                            qself: None,
-                                            path: Path {
-                                                leading_colon: None,
-                                                segments: [
-                                                    PathSegment {
-                                                        ident: Ident(
-                                                            u32,
-                                                        ),
-                                                        arguments: None,
-                                                    },
-                                                ],
-                                            },
+                discriminant: None,
+            },
+            Comma,
+            Variant {
+                attrs: [],
+                ident: Ident(
+                    C,
+                ),
+                fields: Fields::Unnamed {
+                    paren_token: Paren,
+                    unnamed: [
+                        Field {
+                            attrs: [],
+                            vis: Visibility::Inherited,
+                            mutability: FieldMutability::None,
+                            ident: None,
+                            colon_token: None,
+                            ty: Type::Path {
+                                qself: None,
+                                path: Path {
+                                    leading_colon: None,
+                                    segments: [
+                                        PathSegment {
+                                            ident: Ident(
+                                                u32,
+                                            ),
+                                            arguments: PathArguments::None,
                                         },
-                                    ),
+                                    ],
                                 },
-                                Comma,
-                                Field {
-                                    attrs: [],
-                                    vis: Inherited,
-                                    ident: None,
-                                    colon_token: None,
-                                    ty: Path(
-                                        TypePath {
-                                            qself: None,
-                                            path: Path {
-                                                leading_colon: None,
-                                                segments: [
-                                                    PathSegment {
-                                                        ident: Ident(
-                                                            String,
-                                                        ),
-                                                        arguments: None,
-                                                    },
-                                                ],
-                                            },
-                                        },
-                                    ),
-                                },
-                            ],
+                            },
                         },
-                    ),
-                    discriminant: None,
-                },
-                Comma,
-                Variant {
-                    attrs: [],
-                    ident: Ident(
-                        D,
-                    ),
-                    fields: Named(
-                        FieldsNamed {
-                            brace_token: Brace,
-                            named: [
-                                Field {
-                                    attrs: [],
-                                    vis: Inherited,
-                                    ident: Some(
-                                        Ident(
-                                            a,
-                                        ),
-                                    ),
-                                    colon_token: Some(
-                                        Colon,
-                                    ),
-                                    ty: Path(
-                                        TypePath {
-                                            qself: None,
-                                            path: Path {
-                                                leading_colon: None,
-                                                segments: [
-                                                    PathSegment {
-                                                        ident: Ident(
-                                                            u32,
-                                                        ),
-                                                        arguments: None,
-                                                    },
-                                                ],
-                                            },
+                        Comma,
+                        Field {
+                            attrs: [],
+                            vis: Visibility::Inherited,
+                            mutability: FieldMutability::None,
+                            ident: None,
+                            colon_token: None,
+                            ty: Type::Path {
+                                qself: None,
+                                path: Path {
+                                    leading_colon: None,
+                                    segments: [
+                                        PathSegment {
+                                            ident: Ident(
+                                                String,
+                                            ),
+                                            arguments: PathArguments::None,
                                         },
-                                    ),
+                                    ],
                                 },
-                            ],
+                            },
                         },
-                    ),
-                    discriminant: None,
+                    ],
                 },
-            ],
-        },
-    ),
+                discriminant: None,
+            },
+            Comma,
+            Variant {
+                attrs: [],
+                ident: Ident(
+                    D,
+                ),
+                fields: Fields::Named {
+                    brace_token: Brace,
+                    named: [
+                        Field {
+                            attrs: [],
+                            vis: Visibility::Inherited,
+                            mutability: FieldMutability::None,
+                            ident: Some(
+                                Ident(
+                                    a,
+                                ),
+                            ),
+                            colon_token: Some(
+                                Colon,
+                            ),
+                            ty: Type::Path {
+                                qself: None,
+                                path: Path {
+                                    leading_colon: None,
+                                    segments: [
+                                        PathSegment {
+                                            ident: Ident(
+                                                u32,
+                                            ),
+                                            arguments: PathArguments::None,
+                                        },
+                                    ],
+                                },
+                            },
+                        },
+                    ],
+                },
+                discriminant: None,
+            },
+        ],
+    },
 }

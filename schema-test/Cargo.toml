@@ -2,7 +2,7 @@
 name = "schema-test"
 version = "0.0.1"
 authors = ["Adam H. Leventhal <ahl@oxide.computer>"]
-edition = "2018"
+edition = "2021"
 license = "Apache-2.0"
 description = "tests for the schema crate"
 repository = "https://github.com/ahl/schema"

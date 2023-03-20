@@ -1,8 +1,8 @@
 [package]
 name = "schema-derive"
-version = "0.0.1"
+version = "0.1.0"
 authors = ["Adam H. Leventhal <ahl@oxide.computer>"]
-edition = "2018"
+edition = "2021"
 license = "Apache-2.0"
 description = "derive macro for the schema crate"
 repository = "https://github.com/ahl/schema"
@@ -15,7 +15,7 @@ categories = ["development-tools::procedural-macro-helpers",
 proc-macro = true
 
 [dependencies]
-syn = { version = "1.0.64", features = ["derive", "extra-traits"] }
+syn = { version = "2.0.2", features = ["full", "extra-traits"] }
 quote = "1.0.9"
 proc-macro2 = "1.0.24"
 paste = "1.0.5"
