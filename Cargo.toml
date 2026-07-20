@@ -4,7 +4,7 @@ default-members = ["schema", "schema-derive", "schema-test" ]
 resolver = "3"
 
 [workspace.dependencies]
-schema = { path = "schema" }
+schema = { version = "0.2.0", path = "schema" }
 schema-derive = { version = "0.2.0", path = "schema-derive" }
 
 expectorate = "1.0.3"
