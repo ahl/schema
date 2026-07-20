@@ -162,4 +162,24 @@ mod test {
     fn test_binary_discriminant() {
         let _ = BinaryDiscriminant::schema();
     }
+
+    #[derive(Schema)]
+    struct BoolConst<const B: bool = true> {
+        a: u32,
+    }
+
+    #[test]
+    fn test_bool_const() {
+        let _ = BoolConst::<true>::schema();
+    }
+
+    #[derive(Schema)]
+    struct CharConst<const C: char = 'a'> {
+        a: u32,
+    }
+
+    #[test]
+    fn test_char_const() {
+        let _ = CharConst::<'a'>::schema();
+    }
 }

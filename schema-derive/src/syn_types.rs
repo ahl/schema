@@ -610,6 +610,7 @@ impl Teleporter for Lit {
             Lit,
             Str(lit_str),
             Int(lit_int),
+            Bool(lit_bool),
             // The other variants should be unreachable.
         )
     }
@@ -629,6 +630,15 @@ impl Teleporter for LitInt {
         let value = self.base10_digits();
         quote! {
             schema::syn::LitInt::new(#value, schema::proc_macro2::Span::call_site())
+        }
+    }
+}
+
+impl Teleporter for LitBool {
+    fn teleport(&self) -> proc_macro2::TokenStream {
+        let value = self.value;
+        quote! {
+            schema::syn::LitBool::new(#value, schema::proc_macro2::Span::call_site())
         }
     }
 }
