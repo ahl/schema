@@ -526,6 +526,7 @@ impl Teleporter for Expr {
         make_enum!(
             self,
             Expr,
+            Binary(expr_binary),
             Lit(expr_lit),
             Unary(expr_unary),
             Verbatim(token_stream),
@@ -556,6 +557,49 @@ impl Teleporter for ExprUnary {
 impl Teleporter for UnOp {
     fn teleport(&self) -> proc_macro2::TokenStream {
         make_enum!(self, UnOp, Deref(star), Not(bang), Neg(minus))
+    }
+}
+
+impl Teleporter for ExprBinary {
+    fn teleport(&self) -> proc_macro2::TokenStream {
+        make_struct!(self, ExprBinary, attrs, left, op, right)
+    }
+}
+
+impl Teleporter for BinOp {
+    fn teleport(&self) -> proc_macro2::TokenStream {
+        make_enum!(
+            self,
+            BinOp,
+            Add(plus),
+            Sub(minus),
+            Mul(star),
+            Div(slash),
+            Rem(percent),
+            And(and_and),
+            Or(or_or),
+            BitXor(caret),
+            BitAnd(and),
+            BitOr(or),
+            Shl(shl),
+            Shr(shr),
+            Eq(eq_eq),
+            Lt(lt),
+            Le(le),
+            Ne(ne),
+            Ge(ge),
+            Gt(gt),
+            AddAssign(plus_eq),
+            SubAssign(minus_eq),
+            MulAssign(star_eq),
+            DivAssign(slash_eq),
+            RemAssign(percent_eq),
+            BitXorAssign(caret_eq),
+            BitAndAssign(and_eq),
+            BitOrAssign(or_eq),
+            ShlAssign(shl_eq),
+            ShrAssign(shr_eq),
+        )
     }
 }
 

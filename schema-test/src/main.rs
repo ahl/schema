@@ -150,4 +150,16 @@ mod test {
     fn test_negative_discriminant() {
         let _ = NegativeDiscriminant::schema();
     }
+
+    #[derive(Schema)]
+    #[repr(u32)]
+    enum BinaryDiscriminant {
+        A = 1 + 2,
+        B = 4,
+    }
+
+    #[test]
+    fn test_binary_discriminant() {
+        let _ = BinaryDiscriminant::schema();
+    }
 }
