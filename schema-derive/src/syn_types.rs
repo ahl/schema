@@ -527,7 +527,16 @@ impl Teleporter for Expr {
             self,
             Expr,
             Binary(expr_binary),
+            Block(expr_block),
+            Call(expr_call),
+            Cast(expr_cast),
+            Field(expr_field),
+            If(expr_if),
+            Index(expr_index),
             Lit(expr_lit),
+            MethodCall(expr_method_call),
+            Paren(expr_paren),
+            Struct(expr_struct),
             Unary(expr_unary),
             Verbatim(token_stream),
             Path(expr_path),
@@ -563,6 +572,127 @@ impl Teleporter for UnOp {
 impl Teleporter for ExprBinary {
     fn teleport(&self) -> proc_macro2::TokenStream {
         make_struct!(self, ExprBinary, attrs, left, op, right)
+    }
+}
+
+impl Teleporter for ExprCast {
+    fn teleport(&self) -> proc_macro2::TokenStream {
+        make_struct!(self, ExprCast, attrs, expr, as_token, ty)
+    }
+}
+
+impl Teleporter for ExprParen {
+    fn teleport(&self) -> proc_macro2::TokenStream {
+        make_struct!(self, ExprParen, attrs, paren_token, expr)
+    }
+}
+
+impl Teleporter for ExprCall {
+    fn teleport(&self) -> proc_macro2::TokenStream {
+        make_struct!(self, ExprCall, attrs, func, paren_token, args)
+    }
+}
+
+impl Teleporter for ExprIndex {
+    fn teleport(&self) -> proc_macro2::TokenStream {
+        make_struct!(self, ExprIndex, attrs, expr, bracket_token, index)
+    }
+}
+
+impl Teleporter for ExprField {
+    fn teleport(&self) -> proc_macro2::TokenStream {
+        make_struct!(self, ExprField, attrs, base, dot_token, member)
+    }
+}
+
+impl Teleporter for Member {
+    fn teleport(&self) -> proc_macro2::TokenStream {
+        make_enum!(self, Member, Named(ident), Unnamed(index))
+    }
+}
+
+impl Teleporter for Index {
+    fn teleport(&self) -> proc_macro2::TokenStream {
+        let index = self.index as usize;
+        quote! {
+            schema::syn::Index::from(#index)
+        }
+    }
+}
+
+impl Teleporter for ExprBlock {
+    fn teleport(&self) -> proc_macro2::TokenStream {
+        make_struct!(self, ExprBlock, attrs, label, block)
+    }
+}
+
+impl Teleporter for ExprStruct {
+    fn teleport(&self) -> proc_macro2::TokenStream {
+        make_struct!(
+            self,
+            ExprStruct,
+            attrs,
+            qself,
+            path,
+            brace_token,
+            fields,
+            dot2_token,
+            rest,
+        )
+    }
+}
+
+impl Teleporter for FieldValue {
+    fn teleport(&self) -> proc_macro2::TokenStream {
+        make_struct!(self, FieldValue, attrs, member, colon_token, expr)
+    }
+}
+
+impl Teleporter for ExprIf {
+    fn teleport(&self) -> proc_macro2::TokenStream {
+        make_struct!(
+            self,
+            ExprIf,
+            attrs,
+            if_token,
+            cond,
+            then_branch,
+            else_branch,
+        )
+    }
+}
+
+impl Teleporter for Block {
+    fn teleport(&self) -> proc_macro2::TokenStream {
+        make_struct!(self, Block, brace_token, stmts)
+    }
+}
+
+impl Teleporter for Label {
+    fn teleport(&self) -> proc_macro2::TokenStream {
+        make_struct!(self, Label, name, colon_token)
+    }
+}
+
+impl Teleporter for Stmt {
+    fn teleport(&self) -> proc_macro2::TokenStream {
+        make_enum!(self, Stmt, Expr(expr, semi))
+    }
+}
+
+impl Teleporter for ExprMethodCall {
+    fn teleport(&self) -> proc_macro2::TokenStream {
+        make_struct!(
+            self,
+            ExprMethodCall,
+            attrs,
+            receiver,
+            dot_token,
+            method,
+            turbofish,
+            paren_token,
+            args,
+        )
     }
 }
 
@@ -611,6 +741,9 @@ impl Teleporter for Lit {
             Str(lit_str),
             Int(lit_int),
             Bool(lit_bool),
+            Char(lit_char),
+            Byte(lit_byte),
+            Float(lit_float),
             // The other variants should be unreachable.
         )
     }
@@ -639,6 +772,33 @@ impl Teleporter for LitBool {
         let value = self.value;
         quote! {
             schema::syn::LitBool::new(#value, schema::proc_macro2::Span::call_site())
+        }
+    }
+}
+
+impl Teleporter for LitChar {
+    fn teleport(&self) -> proc_macro2::TokenStream {
+        let value = self.value();
+        quote! {
+            schema::syn::LitChar::new(#value, schema::proc_macro2::Span::call_site())
+        }
+    }
+}
+
+impl Teleporter for LitByte {
+    fn teleport(&self) -> proc_macro2::TokenStream {
+        let value = self.value();
+        quote! {
+            schema::syn::LitByte::new(#value, schema::proc_macro2::Span::call_site())
+        }
+    }
+}
+
+impl Teleporter for LitFloat {
+    fn teleport(&self) -> proc_macro2::TokenStream {
+        let repr = self.to_string();
+        quote! {
+            schema::syn::LitFloat::new(#repr, schema::proc_macro2::Span::call_site())
         }
     }
 }
