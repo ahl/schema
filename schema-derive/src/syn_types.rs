@@ -311,7 +311,7 @@ impl Teleporter for ReturnType {
 
 impl Teleporter for TypeTuple {
     fn teleport(&self) -> TokenStream {
-        make_struct!(self, TypeTuple, paren_token, elems)
+        make_struct!(self, TypeTuple, attrs, paren_token, elems)
     }
 }
 
@@ -351,13 +351,13 @@ impl Teleporter for PredicateType {
 
 impl Teleporter for PredicateLifetime {
     fn teleport(&self) -> TokenStream {
-        make_struct!(self, PredicateLifetime, lifetime, colon_token, bounds)
+        make_struct!(self, PredicateLifetime, attrs, lifetime, colon_token, bounds)
     }
 }
 
 impl Teleporter for TypeTraitObject {
     fn teleport(&self) -> TokenStream {
-        make_struct!(self, TypeTraitObject, dyn_token, bounds)
+        make_struct!(self, TypeTraitObject, attrs, dyn_token, bounds)
     }
 }
 
@@ -377,13 +377,13 @@ impl Teleporter for TypeReference {
 
 impl Teleporter for TypeSlice {
     fn teleport(&self) -> TokenStream {
-        make_struct!(self, TypeSlice, bracket_token, elem)
+        make_struct!(self, TypeSlice, attrs, bracket_token, elem)
     }
 }
 
 impl Teleporter for TypePtr {
     fn teleport(&self) -> proc_macro2::TokenStream {
-        make_struct!(self, TypePtr, star_token, mutability, elem)
+        make_struct!(self, TypePtr, attrs, star_token, mutability, elem)
     }
 }
 
@@ -459,7 +459,7 @@ impl Teleporter for GenericArgument {
 
 impl Teleporter for Constraint {
     fn teleport(&self) -> proc_macro2::TokenStream {
-        make_struct!(self, Constraint, ident, colon_token, bounds)
+        make_struct!(self, Constraint, ident, generics, colon_token, bounds)
     }
 }
 
@@ -477,19 +477,19 @@ impl Teleporter for ParenthesizedGenericArguments {
 
 impl Teleporter for TypeParen {
     fn teleport(&self) -> proc_macro2::TokenStream {
-        make_struct!(self, TypeParen, paren_token, elem)
+        make_struct!(self, TypeParen, attrs, paren_token, elem)
     }
 }
 
 impl Teleporter for TypeNever {
     fn teleport(&self) -> proc_macro2::TokenStream {
-        make_struct!(self, TypeNever, bang_token)
+        make_struct!(self, TypeNever, attrs, bang_token)
     }
 }
 
 impl Teleporter for TypeMacro {
     fn teleport(&self) -> proc_macro2::TokenStream {
-        make_struct!(self, TypeMacro, mac)
+        make_struct!(self, TypeMacro, attrs, mac)
     }
 }
 
@@ -513,19 +513,19 @@ impl Teleporter for MacroDelimiter {
 
 impl Teleporter for TypeImplTrait {
     fn teleport(&self) -> proc_macro2::TokenStream {
-        make_struct!(self, TypeImplTrait, impl_token, bounds)
+        make_struct!(self, TypeImplTrait, attrs, impl_token, bounds)
     }
 }
 
 impl Teleporter for TypeGroup {
     fn teleport(&self) -> proc_macro2::TokenStream {
-        make_struct!(self, TypeGroup, group_token, elem)
+        make_struct!(self, TypeGroup, attrs, group_token, elem)
     }
 }
 
 impl Teleporter for TypeInfer {
     fn teleport(&self) -> proc_macro2::TokenStream {
-        make_struct!(self, TypeInfer, underscore_token)
+        make_struct!(self, TypeInfer, attrs, underscore_token)
     }
 }
 
