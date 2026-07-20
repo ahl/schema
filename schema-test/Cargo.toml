@@ -13,3 +13,4 @@ categories = ["development-tools::procedural-macro-helpers",
 [dependencies]
 schema = { workspace = true }
 expectorate = { workspace = true }
+syn = { workspace = true, features = ["extra-traits"] }
