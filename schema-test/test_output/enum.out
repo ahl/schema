@@ -11,7 +11,7 @@ DeriveInput {
         where_clause: None,
     },
     data: Data::Enum {
-        enum_token: Enum,
+        enum_token: Token![enum],
         brace_token: Brace,
         variants: [
             Variant {
@@ -22,7 +22,7 @@ DeriveInput {
                 fields: Fields::Unit,
                 discriminant: None,
             },
-            Comma,
+            Token![,],
             Variant {
                 attrs: [],
                 ident: Ident(
@@ -34,10 +34,11 @@ DeriveInput {
                         Field {
                             attrs: [],
                             vis: Visibility::Inherited,
-                            mutability: FieldMutability::None,
+                            modifiers: FieldModifiers,
                             ident: None,
                             colon_token: None,
                             ty: Type::Path {
+                                attrs: [],
                                 qself: None,
                                 path: Path {
                                     leading_colon: None,
@@ -51,12 +52,13 @@ DeriveInput {
                                     ],
                                 },
                             },
+                            default: None,
                         },
                     ],
                 },
                 discriminant: None,
             },
-            Comma,
+            Token![,],
             Variant {
                 attrs: [],
                 ident: Ident(
@@ -68,10 +70,11 @@ DeriveInput {
                         Field {
                             attrs: [],
                             vis: Visibility::Inherited,
-                            mutability: FieldMutability::None,
+                            modifiers: FieldModifiers,
                             ident: None,
                             colon_token: None,
                             ty: Type::Path {
+                                attrs: [],
                                 qself: None,
                                 path: Path {
                                     leading_colon: None,
@@ -85,15 +88,17 @@ DeriveInput {
                                     ],
                                 },
                             },
+                            default: None,
                         },
-                        Comma,
+                        Token![,],
                         Field {
                             attrs: [],
                             vis: Visibility::Inherited,
-                            mutability: FieldMutability::None,
+                            modifiers: FieldModifiers,
                             ident: None,
                             colon_token: None,
                             ty: Type::Path {
+                                attrs: [],
                                 qself: None,
                                 path: Path {
                                     leading_colon: None,
@@ -107,12 +112,13 @@ DeriveInput {
                                     ],
                                 },
                             },
+                            default: None,
                         },
                     ],
                 },
                 discriminant: None,
             },
-            Comma,
+            Token![,],
             Variant {
                 attrs: [],
                 ident: Ident(
@@ -124,16 +130,17 @@ DeriveInput {
                         Field {
                             attrs: [],
                             vis: Visibility::Inherited,
-                            mutability: FieldMutability::None,
+                            modifiers: FieldModifiers,
                             ident: Some(
                                 Ident(
                                     a,
                                 ),
                             ),
                             colon_token: Some(
-                                Colon,
+                                Token![:],
                             ),
                             ty: Type::Path {
+                                attrs: [],
                                 qself: None,
                                 path: Path {
                                     leading_colon: None,
@@ -147,6 +154,7 @@ DeriveInput {
                                     ],
                                 },
                             },
+                            default: None,
                         },
                     ],
                 },

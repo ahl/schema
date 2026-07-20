@@ -15,9 +15,9 @@ fn main() {
 mod test {
     use expectorate::assert_contents;
     use schema::{
+        Schema,
         quote::ToTokens,
         syn::{MacroDelimiter, Meta, MetaNameValue},
-        Schema,
     };
 
     /// Doc comments are attributes; isn't that grand?!
@@ -67,9 +67,7 @@ mod test {
         for attr in schema.attrs {
             match attr.path().to_token_stream().to_string().as_str() {
                 "allow" => {
-                    let Meta::List(ll) = &attr.meta else {
-                        panic!()
-                    };
+                    let Meta::List(ll) = &attr.meta else { panic!() };
                     assert!(matches!(ll.delimiter, MacroDelimiter::Paren(_)));
                     assert_eq!(ll.tokens.to_token_stream().to_string(), "unused")
                 }

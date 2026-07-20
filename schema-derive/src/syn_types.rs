@@ -1,7 +1,7 @@
 use proc_macro2::TokenStream;
 use quote::quote;
 use syn::*;
-use syn::{parse_str, punctuated::Punctuated, Path};
+use syn::{Path, parse_str, punctuated::Punctuated};
 
 use crate::Teleporter;
 
@@ -168,16 +168,7 @@ impl Teleporter for GenericParam {
 }
 impl Teleporter for TypeParam {
     fn teleport(&self) -> proc_macro2::TokenStream {
-        make_struct!(
-            self,
-            TypeParam,
-            attrs,
-            ident,
-            colon_token,
-            bounds,
-            eq_token,
-            default
-        )
+        make_struct!(self, TypeParam, attrs, ident, colon_token, bounds, default)
     }
 }
 impl Teleporter for TypeParamBound {
@@ -191,13 +182,24 @@ impl Teleporter for TypeParamBound {
 
 impl Teleporter for TraitBound {
     fn teleport(&self) -> proc_macro2::TokenStream {
-        make_struct!(self, TraitBound, paren_token, modifier, lifetimes, path)
+        make_struct!(
+            self,
+            TraitBound,
+            paren_token,
+            modifiers,
+            lifetimes,
+            maybe,
+            path,
+        )
     }
 }
 
-impl Teleporter for TraitBoundModifier {
+impl Teleporter for TraitBoundModifiers {
     fn teleport(&self) -> TokenStream {
-        make_enum!(self, TraitBoundModifier, Maybe(token), None)
+        // As a non-exhaustive struct, this is our only way to construct it.
+        quote! {
+            Default::default()
+        }
     }
 }
 
@@ -211,7 +213,6 @@ impl Teleporter for ConstParam {
             ident,
             colon_token,
             ty,
-            eq_token,
             default,
         )
     }
@@ -219,16 +220,29 @@ impl Teleporter for ConstParam {
 
 impl Teleporter for Field {
     fn teleport(&self) -> proc_macro2::TokenStream {
-        make_struct!(self, Field, attrs, vis, mutability, ident, colon_token, ty)
+        make_struct!(
+            self,
+            Field,
+            attrs,
+            vis,
+            modifiers,
+            ident,
+            colon_token,
+            ty,
+            default,
+        )
     }
     fn name() -> &'static str {
         "syn::Field"
     }
 }
 
-impl Teleporter for FieldMutability {
+impl Teleporter for FieldModifiers {
     fn teleport(&self) -> TokenStream {
-        make_enum!(self, FieldMutability, None)
+        // As a non-exhaustive struct, this is our only way to construct it.
+        quote! {
+            Default::default()
+        }
     }
 }
 
@@ -238,7 +252,6 @@ impl Teleporter for Type {
             self,
             Type,
             Array(type_array),
-            BareFn(type_bare_fn),
             Group(type_group),
             ImplTrait(type_impl_trait),
             Infer(type_infer),
@@ -261,24 +274,7 @@ impl Teleporter for Type {
 
 impl Teleporter for TypeArray {
     fn teleport(&self) -> TokenStream {
-        make_struct!(self, TypeArray, bracket_token, elem, semi_token, len)
-    }
-}
-
-impl Teleporter for TypeBareFn {
-    fn teleport(&self) -> TokenStream {
-        make_struct!(
-            self,
-            TypeBareFn,
-            lifetimes,
-            unsafety,
-            abi,
-            fn_token,
-            paren_token,
-            inputs,
-            variadic,
-            output
-        )
+        make_struct!(self, TypeArray, attrs, bracket_token, elem, semi_token, len)
     }
 }
 
@@ -304,15 +300,6 @@ impl Teleporter for Abi {
 impl Teleporter for Variadic {
     fn teleport(&self) -> TokenStream {
         make_struct!(self, Variadic, attrs, dots)
-    }
-}
-
-impl Teleporter for BareFnArg {
-    fn teleport(&self) -> TokenStream {
-        make_struct!(self, BareFnArg, attrs, name, ty)
-    }
-    fn name() -> &'static str {
-        "syn::BareFnArg"
     }
 }
 
@@ -353,6 +340,7 @@ impl Teleporter for PredicateType {
         make_struct!(
             self,
             PredicateType,
+            attrs,
             lifetimes,
             bounded_ty,
             colon_token,
@@ -375,7 +363,15 @@ impl Teleporter for TypeTraitObject {
 
 impl Teleporter for TypeReference {
     fn teleport(&self) -> TokenStream {
-        make_struct!(self, TypeReference, and_token, lifetime, mutability, elem)
+        make_struct!(
+            self,
+            TypeReference,
+            attrs,
+            and_token,
+            lifetime,
+            mutability,
+            elem,
+        )
     }
 }
 
@@ -387,13 +383,13 @@ impl Teleporter for TypeSlice {
 
 impl Teleporter for TypePtr {
     fn teleport(&self) -> proc_macro2::TokenStream {
-        make_struct!(self, TypePtr, star_token, const_token, mutability, elem)
+        make_struct!(self, TypePtr, star_token, mutability, elem)
     }
 }
 
 impl Teleporter for TypePath {
     fn teleport(&self) -> proc_macro2::TokenStream {
-        make_struct!(self, TypePath, qself, path)
+        make_struct!(self, TypePath, attrs, qself, path)
     }
 }
 
@@ -613,12 +609,6 @@ impl Teleporter for MetaNameValue {
     }
 }
 
-impl Teleporter for BareVariadic {
-    fn teleport(&self) -> TokenStream {
-        make_struct!(self, BareVariadic, attrs, name, dots, comma)
-    }
-}
-
 impl Teleporter for LifetimeParam {
     fn teleport(&self) -> TokenStream {
         make_struct!(self, LifetimeParam, attrs, lifetime, colon_token, bounds)
@@ -634,5 +624,17 @@ impl Teleporter for AssocType {
 impl Teleporter for AssocConst {
     fn teleport(&self) -> TokenStream {
         make_struct!(self, AssocConst, ident, generics, eq_token, value)
+    }
+}
+
+impl Teleporter for PointerMutability {
+    fn teleport(&self) -> TokenStream {
+        make_enum!(self, PointerMutability, Const(const_), Mut(mut_))
+    }
+}
+
+impl Teleporter for NamedArg {
+    fn teleport(&self) -> TokenStream {
+        make_struct!(self, NamedArg, attrs, name, ty)
     }
 }
