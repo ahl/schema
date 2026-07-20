@@ -39,6 +39,7 @@ make_token!(Gt);
 make_token!(Impl);
 make_token!(In);
 make_token!(Lt);
+make_token!(Minus);
 make_token!(Mut);
 make_token!(Not);
 make_token!(Paren);

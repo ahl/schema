@@ -138,4 +138,16 @@ mod test {
     fn test_fn_ptr() {
         let _ = WithFnPtr::schema();
     }
+
+    #[derive(Schema)]
+    #[repr(i32)]
+    enum NegativeDiscriminant {
+        A = -1,
+        B = 0,
+    }
+
+    #[test]
+    fn test_negative_discriminant() {
+        let _ = NegativeDiscriminant::schema();
+    }
 }

@@ -527,6 +527,7 @@ impl Teleporter for Expr {
             self,
             Expr,
             Lit(expr_lit),
+            Unary(expr_unary),
             Verbatim(token_stream),
             Path(expr_path),
             // The (many) other variants should be unreachable...
@@ -543,6 +544,18 @@ impl Teleporter for ExprPath {
 impl Teleporter for ExprLit {
     fn teleport(&self) -> proc_macro2::TokenStream {
         make_struct!(self, ExprLit, attrs, lit)
+    }
+}
+
+impl Teleporter for ExprUnary {
+    fn teleport(&self) -> proc_macro2::TokenStream {
+        make_struct!(self, ExprUnary, attrs, op, expr)
+    }
+}
+
+impl Teleporter for UnOp {
+    fn teleport(&self) -> proc_macro2::TokenStream {
+        make_enum!(self, UnOp, Deref(star), Not(bang), Neg(minus))
     }
 }
 
