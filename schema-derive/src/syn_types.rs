@@ -51,10 +51,6 @@ impl Teleporter for Lifetime {
             schema::syn::Lifetime::new(#ident, schema::proc_macro2::Span::call_site())
         }
     }
-
-    fn name() -> &'static str {
-        "syn::Lifetime"
-    }
 }
 
 impl Teleporter for Generics {
@@ -75,14 +71,26 @@ impl Teleporter for Data {
     }
 }
 
+// `std::any::type_name` reports the definition site (e.g. `syn::ty::TypePath`),
+// but syn re-exports these types at the crate root (`syn::TypePath`). Collapse
+// `syn::<internal>::...::<Leaf>` to `syn::<Leaf>` so the emitted path resolves.
+fn normalize_syn_path(name: &str) -> String {
+    if let Some(rest) = name.strip_prefix("syn::") {
+        if let Some(pos) = rest.rfind("::") {
+            return format!("syn::{}", &rest[pos + 2..]);
+        }
+    }
+    name.to_string()
+}
+
 impl<T, P> Teleporter for Punctuated<T, P>
 where
     T: crate::Teleporter,
     P: crate::Teleporter,
 {
     fn teleport(&self) -> proc_macro2::TokenStream {
-        let tname = format!("schema::{}", T::name());
-        let pname = format!("schema::{}", P::name());
+        let tname = format!("schema::{}", normalize_syn_path(T::name()));
+        let pname = format!("schema::{}", normalize_syn_path(P::name()));
         let t = parse_str::<Path>(tname.as_str()).unwrap();
         let p = parse_str::<Path>(pname.as_str()).unwrap();
 
@@ -116,10 +124,6 @@ impl Teleporter for DataEnum {
 impl Teleporter for Variant {
     fn teleport(&self) -> proc_macro2::TokenStream {
         make_struct!(self, Variant, attrs, ident, fields, discriminant)
-    }
-
-    fn name() -> &'static str {
-        "syn::Variant"
     }
 }
 
@@ -162,9 +166,6 @@ impl Teleporter for GenericParam {
             Const(const_param)
         )
     }
-    fn name() -> &'static str {
-        "syn::GenericParam"
-    }
 }
 impl Teleporter for TypeParam {
     fn teleport(&self) -> proc_macro2::TokenStream {
@@ -174,9 +175,6 @@ impl Teleporter for TypeParam {
 impl Teleporter for TypeParamBound {
     fn teleport(&self) -> proc_macro2::TokenStream {
         make_enum!(self, TypeParamBound, Trait(trait_bound), Lifetime(lifetime))
-    }
-    fn name() -> &'static str {
-        "syn::TypeParamBound"
     }
 }
 
@@ -232,9 +230,6 @@ impl Teleporter for Field {
             default,
         )
     }
-    fn name() -> &'static str {
-        "syn::Field"
-    }
 }
 
 impl Teleporter for FieldModifiers {
@@ -252,6 +247,7 @@ impl Teleporter for Type {
             self,
             Type,
             Array(type_array),
+            FnPtr(type_fn_ptr),
             Group(type_group),
             ImplTrait(type_impl_trait),
             Infer(type_infer),
@@ -266,9 +262,6 @@ impl Teleporter for Type {
             Tuple(type_tuple),
             Verbatim(token_stream),
         )
-    }
-    fn name() -> &'static str {
-        "syn::Type"
     }
 }
 
@@ -330,9 +323,6 @@ impl Teleporter for WherePredicate {
             Type(predicate_type),
         )
     }
-    fn name() -> &'static str {
-        "syn::WherePredicate"
-    }
 }
 
 impl Teleporter for PredicateType {
@@ -351,7 +341,14 @@ impl Teleporter for PredicateType {
 
 impl Teleporter for PredicateLifetime {
     fn teleport(&self) -> TokenStream {
-        make_struct!(self, PredicateLifetime, attrs, lifetime, colon_token, bounds)
+        make_struct!(
+            self,
+            PredicateLifetime,
+            attrs,
+            lifetime,
+            colon_token,
+            bounds
+        )
     }
 }
 
@@ -409,9 +406,6 @@ impl Teleporter for PathSegment {
     fn teleport(&self) -> proc_macro2::TokenStream {
         make_struct!(self, PathSegment, ident, arguments)
     }
-    fn name() -> &'static str {
-        "syn::PathSegment"
-    }
 }
 
 impl Teleporter for PathArguments {
@@ -451,9 +445,6 @@ impl Teleporter for GenericArgument {
             AssocConst(assoc_const),
             Constraint(constraint),
         )
-    }
-    fn name() -> &'static str {
-        "syn::GenericArgument"
     }
 }
 
@@ -636,5 +627,29 @@ impl Teleporter for PointerMutability {
 impl Teleporter for NamedArg {
     fn teleport(&self) -> TokenStream {
         make_struct!(self, NamedArg, attrs, name, ty)
+    }
+}
+
+impl Teleporter for TypeFnPtr {
+    fn teleport(&self) -> TokenStream {
+        make_struct!(
+            self,
+            TypeFnPtr,
+            attrs,
+            lifetimes,
+            unsafety,
+            abi,
+            fn_token,
+            paren_token,
+            inputs,
+            variadic,
+            output,
+        )
+    }
+}
+
+impl Teleporter for FnPtrVariadic {
+    fn teleport(&self) -> TokenStream {
+        make_struct!(self, FnPtrVariadic, attrs, name, dots, comma)
     }
 }

@@ -128,4 +128,14 @@ mod test {
         let actual = format!("{:#?}", FancyStruct::<'static, String, String, 7>::schema());
         assert_contents("test_output/fancy_struct.out", &actual);
     }
+
+    #[derive(Schema)]
+    struct WithFnPtr {
+        callback: fn(u32) -> bool,
+    }
+
+    #[test]
+    fn test_fn_ptr() {
+        let _ = WithFnPtr::schema();
+    }
 }
