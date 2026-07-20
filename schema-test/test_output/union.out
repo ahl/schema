@@ -1,7 +1,7 @@
 DeriveInput {
     attrs: [
         Attribute {
-            pound_token: Pound,
+            pound_token: Token![#],
             style: AttrStyle::Outer,
             bracket_token: Bracket,
             meta: Meta::List {
@@ -38,23 +38,24 @@ DeriveInput {
         where_clause: None,
     },
     data: Data::Union {
-        union_token: Union,
+        union_token: Token![union],
         fields: FieldsNamed {
             brace_token: Brace,
             named: [
                 Field {
                     attrs: [],
                     vis: Visibility::Inherited,
-                    mutability: FieldMutability::None,
+                    modifiers: FieldModifiers,
                     ident: Some(
                         Ident(
                             f1,
                         ),
                     ),
                     colon_token: Some(
-                        Colon,
+                        Token![:],
                     ),
                     ty: Type::Path {
+                        attrs: [],
                         qself: None,
                         path: Path {
                             leading_colon: None,
@@ -68,21 +69,23 @@ DeriveInput {
                             ],
                         },
                     },
+                    default: None,
                 },
-                Comma,
+                Token![,],
                 Field {
                     attrs: [],
                     vis: Visibility::Inherited,
-                    mutability: FieldMutability::None,
+                    modifiers: FieldModifiers,
                     ident: Some(
                         Ident(
                             f2,
                         ),
                     ),
                     colon_token: Some(
-                        Colon,
+                        Token![:],
                     ),
                     ty: Type::Path {
+                        attrs: [],
                         qself: None,
                         path: Path {
                             leading_colon: None,
@@ -96,6 +99,7 @@ DeriveInput {
                             ],
                         },
                     },
+                    default: None,
                 },
             ],
         },

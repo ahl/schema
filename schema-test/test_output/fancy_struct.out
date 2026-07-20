@@ -6,7 +6,7 @@ DeriveInput {
     ),
     generics: Generics {
         lt_token: Some(
-            Lt,
+            Token![<],
         ),
         params: [
             GenericParam::Lifetime(
@@ -22,7 +22,7 @@ DeriveInput {
                     bounds: [],
                 },
             ),
-            Comma,
+            Token![,],
             GenericParam::Type(
                 TypeParam {
                     attrs: [],
@@ -30,14 +30,15 @@ DeriveInput {
                         T,
                     ),
                     colon_token: Some(
-                        Colon,
+                        Token![:],
                     ),
                     bounds: [
                         TypeParamBound::Trait(
                             TraitBound {
                                 paren_token: None,
-                                modifier: TraitBoundModifier::None,
                                 lifetimes: None,
+                                modifiers: TraitBoundModifiers,
+                                maybe: None,
                                 path: Path {
                                     leading_colon: None,
                                     segments: [
@@ -52,11 +53,10 @@ DeriveInput {
                             },
                         ),
                     ],
-                    eq_token: None,
                     default: None,
                 },
             ),
-            Comma,
+            Token![,],
             GenericParam::Type(
                 TypeParam {
                     attrs: [],
@@ -65,20 +65,20 @@ DeriveInput {
                     ),
                     colon_token: None,
                     bounds: [],
-                    eq_token: None,
                     default: None,
                 },
             ),
-            Comma,
+            Token![,],
             GenericParam::Const(
                 ConstParam {
                     attrs: [],
-                    const_token: Const,
+                    const_token: Token![const],
                     ident: Ident(
                         N,
                     ),
-                    colon_token: Colon,
+                    colon_token: Token![:],
                     ty: Type::Path {
+                        attrs: [],
                         qself: None,
                         path: Path {
                             leading_colon: None,
@@ -92,22 +92,23 @@ DeriveInput {
                             ],
                         },
                     },
-                    eq_token: None,
                     default: None,
                 },
             ),
         ],
         gt_token: Some(
-            Gt,
+            Token![>],
         ),
         where_clause: Some(
             WhereClause {
-                where_token: Where,
+                where_token: Token![where],
                 predicates: [
                     WherePredicate::Type(
                         PredicateType {
+                            attrs: [],
                             lifetimes: None,
                             bounded_ty: Type::Path {
+                                attrs: [],
                                 qself: None,
                                 path: Path {
                                     leading_colon: None,
@@ -121,13 +122,14 @@ DeriveInput {
                                     ],
                                 },
                             },
-                            colon_token: Colon,
+                            colon_token: Token![:],
                             bounds: [
                                 TypeParamBound::Trait(
                                     TraitBound {
                                         paren_token: None,
-                                        modifier: TraitBoundModifier::None,
                                         lifetimes: None,
+                                        modifiers: TraitBoundModifiers,
+                                        maybe: None,
                                         path: Path {
                                             leading_colon: None,
                                             segments: [
@@ -149,14 +151,14 @@ DeriveInput {
         ),
     },
     data: Data::Struct {
-        struct_token: Struct,
+        struct_token: Token![struct],
         fields: Fields::Named {
             brace_token: Brace,
             named: [
                 Field {
                     attrs: [
                         Attribute {
-                            pound_token: Pound,
+                            pound_token: Token![#],
                             style: AttrStyle::Outer,
                             bracket_token: Bracket,
                             meta: Meta::NameValue {
@@ -171,7 +173,7 @@ DeriveInput {
                                         },
                                     ],
                                 },
-                                eq_token: Eq,
+                                eq_token: Token![=],
                                 value: Expr::Lit {
                                     attrs: [],
                                     lit: Lit::Str {
@@ -182,17 +184,18 @@ DeriveInput {
                         },
                     ],
                     vis: Visibility::Inherited,
-                    mutability: FieldMutability::None,
+                    modifiers: FieldModifiers,
                     ident: Some(
                         Ident(
                             tee,
                         ),
                     ),
                     colon_token: Some(
-                        Colon,
+                        Token![:],
                     ),
                     ty: Type::Reference {
-                        and_token: And,
+                        attrs: [],
+                        and_token: Token![&],
                         lifetime: Some(
                             Lifetime {
                                 apostrophe: Span,
@@ -203,6 +206,7 @@ DeriveInput {
                         ),
                         mutability: None,
                         elem: Type::Path {
+                            attrs: [],
                             qself: None,
                             path: Path {
                                 leading_colon: None,
@@ -217,23 +221,26 @@ DeriveInput {
                             },
                         },
                     },
+                    default: None,
                 },
-                Comma,
+                Token![,],
                 Field {
                     attrs: [],
                     vis: Visibility::Inherited,
-                    mutability: FieldMutability::None,
+                    modifiers: FieldModifiers,
                     ident: Some(
                         Ident(
                             ewes,
                         ),
                     ),
                     colon_token: Some(
-                        Colon,
+                        Token![:],
                     ),
                     ty: Type::Array {
+                        attrs: [],
                         bracket_token: Bracket,
                         elem: Type::Path {
+                            attrs: [],
                             qself: None,
                             path: Path {
                                 leading_colon: None,
@@ -247,7 +254,7 @@ DeriveInput {
                                 ],
                             },
                         },
-                        semi_token: Semi,
+                        semi_token: Token![;],
                         len: Expr::Path {
                             attrs: [],
                             qself: None,
@@ -264,6 +271,7 @@ DeriveInput {
                             },
                         },
                     },
+                    default: None,
                 },
             ],
         },
